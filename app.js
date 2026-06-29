@@ -72,6 +72,10 @@ const factorBtn = document.getElementById("factorBtn");
 const factorExampleBtn = document.getElementById("factorExampleBtn");
 const factorResult = document.getElementById("factorResult");
 
+const singleNumberInput = document.getElementById("singleNumberInput");
+const singleExploreBtn = document.getElementById("singleExploreBtn");
+const singleExploreHint = document.getElementById("singleExploreHint");
+
 const primeInput = document.getElementById("primeInput");
 const primeBtn = document.getElementById("primeBtn");
 const primeExampleBtn = document.getElementById("primeExampleBtn");
@@ -142,7 +146,12 @@ function runGcdLcm() {
   const a = asInt(numA.value);
   const b = asInt(numB.value);
 
-  if (a === null || b === null || a < 1 || b < 1) {
+  if (a === null || b === null) {
+    setResult(gcdLcmResult, "Enter both numbers to calculate GCD and LCM.");
+    return;
+  }
+
+  if (a < 1 || b < 1) {
     setResult(gcdLcmResult, "Please enter two whole numbers greater than 0.", "error");
     return;
   }
@@ -153,6 +162,36 @@ function runGcdLcm() {
   setResult(
     gcdLcmResult,
     `<strong>GCD(${a}, ${b}) = ${gcdValue}</strong><br/><strong>LCM(${a}, ${b}) = ${lcmValue}</strong><br/><small>Check: GCD × LCM = ${gcdValue * lcmValue}, and ${a} × ${b} = ${a * b}</small>`,
+    "success"
+  );
+}
+
+function runSingleExplorer() {
+  const value = asInt(singleNumberInput.value);
+
+  if (value === null || value < 1) {
+    setResult(singleExploreHint, "Please enter a whole number greater than 0.", "error");
+    return;
+  }
+
+  factorInput.value = value;
+  primeInput.value = value;
+  runFactors();
+
+  if (value >= 2) {
+    runPrimeFactorization();
+    setResult(
+      singleExploreHint,
+      `Showing full results for <strong>${value}</strong>. Scroll down to see factors and prime factorisation.`,
+      "success"
+    );
+    return;
+  }
+
+  setResult(primeResult, "Prime factorisation starts at 2. Try a number 2 or bigger.");
+  setResult(
+    singleExploreHint,
+    "Factors are shown below. Prime factorisation needs a number of at least 2.",
     "success"
   );
 }
@@ -246,6 +285,7 @@ factorBtn.addEventListener("click", runFactors);
 primeBtn.addEventListener("click", runPrimeFactorization);
 gcdLcmBtn.addEventListener("click", runGcdLcm);
 fractionBtn.addEventListener("click", runFractions);
+singleExploreBtn.addEventListener("click", runSingleExplorer);
 
 factorExampleBtn.addEventListener("click", loadFactorExample);
 primeExampleBtn.addEventListener("click", loadPrimeExample);
@@ -257,7 +297,11 @@ quickPrime.addEventListener("click", loadPrimeExample);
 quickGcdLcm.addEventListener("click", loadGcdLcmExample);
 quickFraction.addEventListener("click", loadFractionExample);
 
+numA.addEventListener("input", runGcdLcm);
+numB.addEventListener("input", runGcdLcm);
+
 setupEnterToRun([factorInput], runFactors);
 setupEnterToRun([primeInput], runPrimeFactorization);
 setupEnterToRun([numA, numB], runGcdLcm);
 setupEnterToRun([n1, d1, n2, d2], runFractions);
+setupEnterToRun([singleNumberInput], runSingleExplorer);

@@ -19,6 +19,16 @@
   </header>
 
   <main class="container main-grid">
+    <section class="card wide single-explorer">
+      <h2>Number Explorer (Start Here)</h2>
+      <p class="helper-text">Enter one number once. The app will show factors and prime factorisation together.</p>
+      <div class="row">
+        <input id="singleNumberInput" type="number" min="1" placeholder="Enter one whole number, e.g. 36" />
+        <button type="button" id="singleExploreBtn">Show Everything</button>
+      </div>
+      <div id="singleExploreHint" class="result" aria-live="polite">Try 36, then press Show Everything.</div>
+    </section>
+
     <section class="card start-card wide">
       <h2>Start Here: 3 Easy Steps</h2>
       <ol class="steps-list">
@@ -47,6 +57,39 @@
       </div>
     </section>
 
+    <section class="card wide">
+      <h2>Lesson Mode</h2>
+      <p class="helper-text">Choose a topic, then read a short explanation and a worked example.</p>
+      <div class="quick-actions lesson-actions">
+        <button class="ghost-btn" type="button" id="lessonFactorsBtn">Lesson: Factors</button>
+        <button class="ghost-btn" type="button" id="lessonPrimeBtn">Lesson: Prime Factorization</button>
+        <button class="ghost-btn" type="button" id="lessonGcdLcmBtn">Lesson: GCD and LCM</button>
+        <button class="ghost-btn" type="button" id="lessonFractionBtn">Lesson: Fractions with LCM</button>
+      </div>
+      <div id="lessonResult" class="result" aria-live="polite">
+        Choose a lesson button to begin.
+      </div>
+    </section>
+
+    <section class="card wide">
+      <h2>Practice Challenge</h2>
+      <p class="helper-text">Generate a random question, answer it, and get feedback.</p>
+      <div class="practice-grid">
+        <select id="practiceType">
+          <option value="factorsCount">How many factors?</option>
+          <option value="gcd">Find GCD</option>
+          <option value="lcm">Find LCM</option>
+        </select>
+        <button type="button" id="newPracticeBtn">New Question</button>
+      </div>
+      <div id="practiceQuestion" class="result">Click "New Question" to start practice.</div>
+      <div class="row">
+        <input id="practiceAnswer" type="number" placeholder="Type your answer" />
+        <button type="button" id="checkPracticeBtn">Check Answer</button>
+      </div>
+      <div id="practiceFeedback" class="result" aria-live="polite">Feedback will appear here.</div>
+    </section>
+
     <section class="card tool-card">
       <h2>Find Factors</h2>
       <label for="factorInput">Enter a whole number</label>
@@ -71,6 +114,7 @@
 
     <section class="card tool-card">
       <h2>GCD and LCM (Two Numbers)</h2>
+      <p class="helper-text">This only calculates when both numbers are filled.</p>
       <label for="numA">First number</label>
       <input id="numA" type="number" min="1" placeholder="e.g. 18" />
       <label for="numB">Second number</label>
@@ -79,7 +123,7 @@
         <button class="secondary-btn" type="button" id="gcdLcmExampleBtn">Try Example</button>
         <button id="gcdLcmBtn">Calculate</button>
       </div>
-      <div id="gcdLcmResult" class="result" aria-live="polite">Tip: Try 18 and 24 to compare GCD and LCM.</div>
+      <div id="gcdLcmResult" class="result" aria-live="polite">Enter both numbers to calculate GCD and LCM.</div>
     </section>
 
     <section class="card tool-card wide">
