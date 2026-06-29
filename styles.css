@@ -90,7 +90,7 @@ h1 {
 
 .main-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.6fr);
   gap: 0.55rem;
   padding-bottom: 0.4rem;
 }
@@ -118,6 +118,11 @@ h1 {
   background: linear-gradient(130deg, #fffef9 0%, #f4fbff 100%);
 }
 
+.panel-card {
+  min-height: 0;
+  height: 100%;
+}
+
 .hidden {
   display: none;
 }
@@ -128,39 +133,9 @@ h1 {
   gap: 0.7rem;
 }
 
-.mode-layout {
-  display: grid;
-  grid-template-columns: minmax(240px, 0.9fr) minmax(0, 1.6fr);
-  gap: 0.65rem;
-  align-items: start;
-}
-
-.mode-input-pane,
-.mode-stats-pane {
-  background: #ffffffcc;
-  border: 1px solid #dde9ef;
-  border-radius: 12px;
-  padding: 0.55rem;
-}
-
-#oneModeCard,
-#twoModeCard {
-  min-height: 0;
-}
-
-#oneModeCard .mode-layout,
-#twoModeCard .mode-layout {
-  height: calc(100% - 2rem);
-  min-height: 0;
-}
-
-.mode-stats-pane {
-  max-height: 100%;
+#inputPanel,
+#statsPanel {
   overflow: auto;
-}
-
-.mode-input-pane .helper-text {
-  margin-top: 0;
 }
 
 .input-group {
@@ -425,10 +400,6 @@ button:hover {
   .main-grid {
     grid-template-columns: 1fr;
     gap: 0.75rem;
-  }
-
-  .mode-layout {
-    grid-template-columns: 1fr;
   }
 
   .row {

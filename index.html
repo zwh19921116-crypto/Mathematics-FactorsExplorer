@@ -19,72 +19,69 @@
   </header>
 
   <main class="container main-grid app-fit">
-    <section class="card wide simple-card" id="workspaceCard">
-      <h2>Factor Explorer</h2>
-      <div class="mode-layout">
-        <div class="mode-input-pane">
-          <label for="modeSelect">Input Mode</label>
-          <select id="modeSelect" aria-label="Choose one or two number mode">
-            <option value="one">1 Number</option>
-            <option value="two">2 Numbers</option>
-          </select>
+    <section class="card simple-card panel-card" id="inputPanel">
+      <h2>Input Panel</h2>
+      <label for="modeSelect">Input Mode</label>
+      <select id="modeSelect" aria-label="Choose one or two number mode">
+        <option value="one">1 Number</option>
+        <option value="two">2 Numbers</option>
+      </select>
 
-          <div id="oneInputGroup" class="input-group">
-            <label for="singleNumberInput">Type one whole number</label>
-            <input id="singleNumberInput" type="number" min="1" placeholder="e.g. 36" />
+      <div id="oneInputGroup" class="input-group">
+        <label for="singleNumberInput">Type one whole number</label>
+        <input id="singleNumberInput" type="number" min="1" placeholder="e.g. 36" />
+      </div>
+
+      <div id="twoInputGroup" class="input-group hidden">
+        <p class="helper-text">Type both numbers. GCD and LCM appear automatically.</p>
+        <div class="two-inputs">
+          <div>
+            <label for="numA">First number</label>
+            <input id="numA" type="number" min="1" placeholder="e.g. 18" />
           </div>
-
-          <div id="twoInputGroup" class="input-group hidden">
-            <p class="helper-text">Type both numbers. GCD and LCM appear automatically.</p>
-            <div class="two-inputs">
-              <div>
-                <label for="numA">First number</label>
-                <input id="numA" type="number" min="1" placeholder="e.g. 18" />
-              </div>
-              <div>
-                <label for="numB">Second number</label>
-                <input id="numB" type="number" min="1" placeholder="e.g. 24" />
-              </div>
-            </div>
+          <div>
+            <label for="numB">Second number</label>
+            <input id="numB" type="number" min="1" placeholder="e.g. 24" />
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="mode-stats-pane">
-          <div id="oneOutputGroup">
-            <div id="singleExploreHint" class="result" aria-live="polite">Waiting for a number...</div>
-            <div id="factorResult" class="result" aria-live="polite">Factors will appear here.</div>
-            <div id="primeResult" class="result" aria-live="polite">Prime factorisation will appear here.</div>
+    <section class="card simple-card panel-card" id="statsPanel">
+      <h2>Stats Panel</h2>
+      <div id="oneOutputGroup">
+        <div id="singleExploreHint" class="result" aria-live="polite">Waiting for a number...</div>
+        <div id="factorResult" class="result" aria-live="polite">Factors will appear here.</div>
+        <div id="primeResult" class="result" aria-live="polite">Prime factorisation will appear here.</div>
 
-            <div id="singleStatsWrap" class="table-wrap hidden" aria-live="polite">
-              <h3>Factor Stats</h3>
-              <table class="stats-table">
-                <thead>
-                  <tr>
-                    <th>Stat</th>
-                    <th>Value</th>
-                  </tr>
-                </thead>
-                <tbody id="singleStatsBody"></tbody>
-              </table>
-            </div>
-          </div>
+        <div id="singleStatsWrap" class="table-wrap hidden" aria-live="polite">
+          <h3>Factor Stats</h3>
+          <table class="stats-table">
+            <thead>
+              <tr>
+                <th>Stat</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody id="singleStatsBody"></tbody>
+          </table>
+        </div>
+      </div>
 
-          <div id="twoOutputGroup" class="hidden">
-            <div id="gcdLcmResult" class="result" aria-live="polite">Waiting for two numbers...</div>
+      <div id="twoOutputGroup" class="hidden">
+        <div id="gcdLcmResult" class="result" aria-live="polite">Waiting for two numbers...</div>
 
-            <div id="twoStatsWrap" class="table-wrap hidden" aria-live="polite">
-              <h3>Two-Number Stats</h3>
-              <table class="stats-table">
-                <thead>
-                  <tr>
-                    <th>Stat</th>
-                    <th>Value</th>
-                  </tr>
-                </thead>
-                <tbody id="twoStatsBody"></tbody>
-              </table>
-            </div>
-          </div>
+        <div id="twoStatsWrap" class="table-wrap hidden" aria-live="polite">
+          <h3>Two-Number Stats</h3>
+          <table class="stats-table">
+            <thead>
+              <tr>
+                <th>Stat</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody id="twoStatsBody"></tbody>
+          </table>
         </div>
       </div>
     </section>
