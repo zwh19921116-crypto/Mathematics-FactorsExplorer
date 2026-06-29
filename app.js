@@ -69,15 +69,18 @@ function asInt(value) {
 
 const factorInput = document.getElementById("factorInput");
 const factorBtn = document.getElementById("factorBtn");
+const factorExampleBtn = document.getElementById("factorExampleBtn");
 const factorResult = document.getElementById("factorResult");
 
 const primeInput = document.getElementById("primeInput");
 const primeBtn = document.getElementById("primeBtn");
+const primeExampleBtn = document.getElementById("primeExampleBtn");
 const primeResult = document.getElementById("primeResult");
 
 const numA = document.getElementById("numA");
 const numB = document.getElementById("numB");
 const gcdLcmBtn = document.getElementById("gcdLcmBtn");
+const gcdLcmExampleBtn = document.getElementById("gcdLcmExampleBtn");
 const gcdLcmResult = document.getElementById("gcdLcmResult");
 
 const n1 = document.getElementById("n1");
@@ -86,9 +89,15 @@ const op = document.getElementById("op");
 const n2 = document.getElementById("n2");
 const d2 = document.getElementById("d2");
 const fractionBtn = document.getElementById("fractionBtn");
+const fractionExampleBtn = document.getElementById("fractionExampleBtn");
 const fractionResult = document.getElementById("fractionResult");
 
-factorBtn.addEventListener("click", () => {
+const quickFactors = document.getElementById("quickFactors");
+const quickPrime = document.getElementById("quickPrime");
+const quickGcdLcm = document.getElementById("quickGcdLcm");
+const quickFraction = document.getElementById("quickFraction");
+
+function runFactors() {
   const value = asInt(factorInput.value);
 
   if (value === null || value < 1) {
@@ -102,9 +111,9 @@ factorBtn.addEventListener("click", () => {
     `<strong>Factors of ${value}:</strong> ${factors.join(", ")}<br/><small>Total factors: ${factors.length}</small>`,
     "success"
   );
-});
+}
 
-primeBtn.addEventListener("click", () => {
+function runPrimeFactorization() {
   const value = asInt(primeInput.value);
 
   if (value === null || value < 2) {
@@ -127,9 +136,9 @@ primeBtn.addEventListener("click", () => {
     `<strong>${value}</strong> = ${factors.join(" × ")}<br/><small>Compact form: ${compact}</small>`,
     "success"
   );
-});
+}
 
-gcdLcmBtn.addEventListener("click", () => {
+function runGcdLcm() {
   const a = asInt(numA.value);
   const b = asInt(numB.value);
 
@@ -146,9 +155,9 @@ gcdLcmBtn.addEventListener("click", () => {
     `<strong>GCD(${a}, ${b}) = ${gcdValue}</strong><br/><strong>LCM(${a}, ${b}) = ${lcmValue}</strong><br/><small>Check: GCD × LCM = ${gcdValue * lcmValue}, and ${a} × ${b} = ${a * b}</small>`,
     "success"
   );
-});
+}
 
-fractionBtn.addEventListener("click", () => {
+function runFractions() {
   const aNum = asInt(n1.value);
   const aDen = asInt(d1.value);
   const bNum = asInt(n2.value);
@@ -196,4 +205,59 @@ fractionBtn.addEventListener("click", () => {
   `;
 
   setResult(fractionResult, html, "success");
-});
+}
+
+function setupEnterToRun(inputElements, runFn) {
+  inputElements.forEach((el) => {
+    el.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        runFn();
+      }
+    });
+  });
+}
+
+function loadFactorExample() {
+  factorInput.value = 36;
+  runFactors();
+}
+
+function loadPrimeExample() {
+  primeInput.value = 60;
+  runPrimeFactorization();
+}
+
+function loadGcdLcmExample() {
+  numA.value = 18;
+  numB.value = 24;
+  runGcdLcm();
+}
+
+function loadFractionExample() {
+  n1.value = 1;
+  d1.value = 4;
+  op.value = "+";
+  n2.value = 3;
+  d2.value = 10;
+  runFractions();
+}
+
+factorBtn.addEventListener("click", runFactors);
+primeBtn.addEventListener("click", runPrimeFactorization);
+gcdLcmBtn.addEventListener("click", runGcdLcm);
+fractionBtn.addEventListener("click", runFractions);
+
+factorExampleBtn.addEventListener("click", loadFactorExample);
+primeExampleBtn.addEventListener("click", loadPrimeExample);
+gcdLcmExampleBtn.addEventListener("click", loadGcdLcmExample);
+fractionExampleBtn.addEventListener("click", loadFractionExample);
+
+quickFactors.addEventListener("click", loadFactorExample);
+quickPrime.addEventListener("click", loadPrimeExample);
+quickGcdLcm.addEventListener("click", loadGcdLcmExample);
+quickFraction.addEventListener("click", loadFractionExample);
+
+setupEnterToRun([factorInput], runFactors);
+setupEnterToRun([primeInput], runPrimeFactorization);
+setupEnterToRun([numA, numB], runGcdLcm);
+setupEnterToRun([n1, d1, n2, d2], runFractions);

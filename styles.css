@@ -102,6 +102,23 @@ h1 {
   background: linear-gradient(130deg, #fff 0%, #fffdf8 100%);
 }
 
+.start-card {
+  background: linear-gradient(130deg, #f1f9ff 0%, #e6f5f4 100%);
+  border-color: #cfe4e8;
+}
+
+.steps-list {
+  margin: 0.4rem 0 0.8rem 1.2rem;
+  padding: 0;
+  line-height: 1.5;
+}
+
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
 .tip {
   margin-top: 0.75rem;
   padding: 0.75rem;
@@ -149,6 +166,23 @@ button {
   font-weight: 800;
   cursor: pointer;
   transition: transform 160ms ease, filter 160ms ease;
+}
+
+.ghost-btn,
+.secondary-btn {
+  background: #edf5f9;
+  color: #0b5167;
+  border: 1px solid #bfd5e0;
+  font-weight: 700;
+}
+
+.secondary-btn {
+  min-width: 120px;
+}
+
+.ghost-btn:hover,
+.secondary-btn:hover {
+  background: #e3f0f7;
 }
 
 button:hover {
@@ -242,6 +276,10 @@ button:hover {
   }
 
   .fraction-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-actions {
     grid-template-columns: 1fr;
   }
 }

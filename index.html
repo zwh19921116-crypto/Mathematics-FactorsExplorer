@@ -19,6 +19,21 @@
   </header>
 
   <main class="container main-grid">
+    <section class="card start-card wide">
+      <h2>Start Here: 3 Easy Steps</h2>
+      <ol class="steps-list">
+        <li>Click a "Try Example" button to auto-fill values.</li>
+        <li>Click the main action button (or press Enter in a box).</li>
+        <li>Read the result and follow the math steps shown.</li>
+      </ol>
+      <div class="quick-actions">
+        <button class="ghost-btn" type="button" id="quickFactors">Try Factors Example</button>
+        <button class="ghost-btn" type="button" id="quickPrime">Try Prime Example</button>
+        <button class="ghost-btn" type="button" id="quickGcdLcm">Try GCD/LCM Example</button>
+        <button class="ghost-btn" type="button" id="quickFraction">Try Fraction Example</button>
+      </div>
+    </section>
+
     <section class="card learn-card">
       <h2>What is a factor?</h2>
       <p>
@@ -37,9 +52,10 @@
       <label for="factorInput">Enter a whole number</label>
       <div class="row">
         <input id="factorInput" type="number" min="1" placeholder="e.g. 36" />
+        <button class="secondary-btn" type="button" id="factorExampleBtn">Try Example</button>
         <button id="factorBtn">Explore</button>
       </div>
-      <div id="factorResult" class="result" aria-live="polite"></div>
+      <div id="factorResult" class="result" aria-live="polite">Tip: Try 36 to see factor pairs.</div>
     </section>
 
     <section class="card tool-card">
@@ -47,9 +63,10 @@
       <label for="primeInput">Enter a whole number</label>
       <div class="row">
         <input id="primeInput" type="number" min="2" placeholder="e.g. 60" />
+        <button class="secondary-btn" type="button" id="primeExampleBtn">Try Example</button>
         <button id="primeBtn">Factorize</button>
       </div>
-      <div id="primeResult" class="result" aria-live="polite"></div>
+      <div id="primeResult" class="result" aria-live="polite">Tip: Try 60 for a classic example.</div>
     </section>
 
     <section class="card tool-card">
@@ -59,9 +76,10 @@
       <label for="numB">Second number</label>
       <input id="numB" type="number" min="1" placeholder="e.g. 24" />
       <div class="row">
+        <button class="secondary-btn" type="button" id="gcdLcmExampleBtn">Try Example</button>
         <button id="gcdLcmBtn">Calculate</button>
       </div>
-      <div id="gcdLcmResult" class="result" aria-live="polite"></div>
+      <div id="gcdLcmResult" class="result" aria-live="polite">Tip: Try 18 and 24 to compare GCD and LCM.</div>
     </section>
 
     <section class="card tool-card wide">
@@ -95,9 +113,10 @@
       </div>
 
       <div class="row">
+        <button class="secondary-btn" type="button" id="fractionExampleBtn">Try Example</button>
         <button id="fractionBtn">Solve with Steps</button>
       </div>
-      <div id="fractionResult" class="result" aria-live="polite"></div>
+      <div id="fractionResult" class="result" aria-live="polite">Tip: Try 1/4 + 3/10 and follow the four steps.</div>
     </section>
   </main>
 
