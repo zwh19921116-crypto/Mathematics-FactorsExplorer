@@ -73,6 +73,25 @@ function setStatsRows(tbody, rows) {
     .join("");
 }
 
+function renderFactorChips(factors, commonSet, gcdValue) {
+  return factors
+    .map((n) => {
+      const isCommon = commonSet.has(n);
+      const isGcd = n === gcdValue;
+      const classes = ["factor-chip"];
+
+      if (isCommon) {
+        classes.push("common-chip");
+      }
+      if (isGcd) {
+        classes.push("gcd-chip");
+      }
+
+      return `<span class="${classes.join(" ")}">${n}</span>`;
+    })
+    .join("");
+}
+
 const modeSelect = document.getElementById("modeSelect");
 const oneModeCard = document.getElementById("oneModeCard");
 const twoModeCard = document.getElementById("twoModeCard");
@@ -168,10 +187,20 @@ function runTwoExplorer() {
   const factorsA = factorsOf(a);
   const factorsB = factorsOf(b);
   const common = factorsA.filter((n) => factorsB.includes(n));
+  const commonSet = new Set(common);
+
+  const factorView = `
+    <div class="factor-view">
+      <p class="factor-view-title">Why GCD is ${gcdValue}</p>
+      <small>All factors are in ascending order. Circled factors are common to both numbers. The double circle is the GCD.</small>
+      <div class="factor-line"><strong>Factors of ${a}:</strong> ${renderFactorChips(factorsA, commonSet, gcdValue)}</div>
+      <div class="factor-line"><strong>Factors of ${b}:</strong> ${renderFactorChips(factorsB, commonSet, gcdValue)}</div>
+    </div>
+  `;
 
   setResult(
     gcdLcmResult,
-    `<strong>GCD(${a}, ${b}) = ${gcdValue}</strong><br/><strong>LCM(${a}, ${b}) = ${lcmValue}</strong>`,
+    `<strong>GCD(${a}, ${b}) = ${gcdValue}</strong><br/><strong>LCM(${a}, ${b}) = ${lcmValue}</strong>${factorView}`,
     "success"
   );
 

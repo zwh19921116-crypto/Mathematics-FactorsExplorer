@@ -285,6 +285,53 @@ button:hover {
   color: var(--ink-soft);
 }
 
+.factor-view {
+  margin-top: 0.7rem;
+  padding-top: 0.6rem;
+  border-top: 1px dashed #b7cfd8;
+  color: #22414f;
+}
+
+.factor-view-title {
+  margin: 0 0 0.2rem;
+  font-weight: 800;
+}
+
+.factor-line {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.factor-chip {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 0.45rem;
+  border-radius: 999px;
+  background: #fff;
+  border: 2px solid #cedee6;
+  font-weight: 700;
+  color: #274454;
+}
+
+.common-chip {
+  border-color: #0b7f7b;
+  background: #eefbfa;
+}
+
+.gcd-chip {
+  border-width: 3px;
+  border-color: #b3261e;
+  background: #fff2f1;
+  color: #8c1d17;
+  box-shadow: 0 0 0 2px #ffd5d1 inset;
+}
+
 .fraction-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
