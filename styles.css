@@ -292,6 +292,34 @@ button:hover {
   color: #22414f;
 }
 
+.lcm-view {
+  margin-top: 0.8rem;
+  padding-top: 0.65rem;
+  border-top: 1px dashed #b7cfd8;
+  color: #22414f;
+}
+
+.lcm-step {
+  margin-top: 0.42rem;
+}
+
+.lcm-final {
+  margin-top: 0.5rem;
+  font-weight: 800;
+}
+
+.lcm-value {
+  display: inline-block;
+  min-width: 2.2rem;
+  text-align: center;
+  border-radius: 999px;
+  border: 3px solid #b3261e;
+  background: #fff2f1;
+  color: #8c1d17;
+  padding: 0.12rem 0.5rem;
+  box-shadow: 0 0 0 2px #ffd5d1 inset;
+}
+
 .factor-view-title {
   margin: 0 0 0.2rem;
   font-weight: 800;

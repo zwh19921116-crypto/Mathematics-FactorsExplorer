@@ -73,6 +73,28 @@ function setStatsRows(tbody, rows) {
     .join("");
 }
 
+function primePowerMap(n) {
+  const map = {};
+  const factors = primeFactorization(n);
+
+  factors.forEach((f) => {
+    map[f] = (map[f] || 0) + 1;
+  });
+
+  return map;
+}
+
+function formatPrimePowers(map) {
+  const entries = Object.entries(map).sort((a, b) => Number(a[0]) - Number(b[0]));
+  if (entries.length === 0) {
+    return "1";
+  }
+
+  return entries
+    .map(([prime, power]) => (power > 1 ? `${prime}^${power}` : `${prime}`))
+    .join(" × ");
+}
+
 function renderFactorChips(factors, commonSet, gcdValue) {
   return factors
     .map((n) => {
@@ -188,6 +210,39 @@ function runTwoExplorer() {
   const factorsB = factorsOf(b);
   const common = factorsA.filter((n) => factorsB.includes(n));
   const commonSet = new Set(common);
+  const primeA = primePowerMap(a);
+  const primeB = primePowerMap(b);
+
+  const allPrimes = Array.from(
+    new Set([...Object.keys(primeA), ...Object.keys(primeB)].map(Number))
+  ).sort((x, y) => x - y);
+
+  const lcmPrimeMap = {};
+  allPrimes.forEach((p) => {
+    const pa = primeA[p] || 0;
+    const pb = primeB[p] || 0;
+    lcmPrimeMap[p] = Math.max(pa, pb);
+  });
+
+  const lcmPrimeTerms = Object.entries(lcmPrimeMap)
+    .sort((x, y) => Number(x[0]) - Number(y[0]))
+    .map(([prime, power]) => {
+      if (power === 1) {
+        return `${prime}`;
+      }
+      return `${prime}^${power}`;
+    });
+
+  const lcmExplain = `
+    <div class="lcm-view">
+      <p class="factor-view-title">Why LCM is ${lcmValue}</p>
+      <small>Use prime factors and take the highest power of each prime.</small>
+      <div class="lcm-step"><strong>${a}</strong> = ${formatPrimePowers(primeA)}</div>
+      <div class="lcm-step"><strong>${b}</strong> = ${formatPrimePowers(primeB)}</div>
+      <div class="lcm-step"><strong>Take highest powers:</strong> ${lcmPrimeTerms.join(" × ")}</div>
+      <div class="lcm-final">LCM = ${lcmPrimeTerms.join(" × ")} = <span class="lcm-value">${lcmValue}</span></div>
+    </div>
+  `;
 
   const factorView = `
     <div class="factor-view">
@@ -200,7 +255,7 @@ function runTwoExplorer() {
 
   setResult(
     gcdLcmResult,
-    `<strong>GCD(${a}, ${b}) = ${gcdValue}</strong><br/><strong>LCM(${a}, ${b}) = ${lcmValue}</strong>${factorView}`,
+    `<strong>GCD(${a}, ${b}) = ${gcdValue}</strong><br/><strong>LCM(${a}, ${b}) = ${lcmValue}</strong>${factorView}${lcmExplain}`,
     "success"
   );
 
