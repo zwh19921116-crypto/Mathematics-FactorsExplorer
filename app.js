@@ -115,8 +115,10 @@ function renderFactorChips(factors, commonSet, gcdValue) {
 }
 
 const modeSelect = document.getElementById("modeSelect");
-const oneModeCard = document.getElementById("oneModeCard");
-const twoModeCard = document.getElementById("twoModeCard");
+const oneInputGroup = document.getElementById("oneInputGroup");
+const twoInputGroup = document.getElementById("twoInputGroup");
+const oneOutputGroup = document.getElementById("oneOutputGroup");
+const twoOutputGroup = document.getElementById("twoOutputGroup");
 
 const singleNumberInput = document.getElementById("singleNumberInput");
 const singleExploreHint = document.getElementById("singleExploreHint");
@@ -274,8 +276,10 @@ function runTwoExplorer() {
 
 function setMode(mode) {
   const oneMode = mode === "one";
-  oneModeCard.classList.toggle("hidden", !oneMode);
-  twoModeCard.classList.toggle("hidden", oneMode);
+  oneInputGroup.classList.toggle("hidden", !oneMode);
+  oneOutputGroup.classList.toggle("hidden", !oneMode);
+  twoInputGroup.classList.toggle("hidden", oneMode);
+  twoOutputGroup.classList.toggle("hidden", oneMode);
 
   if (oneMode) {
     runSingleExplorer();

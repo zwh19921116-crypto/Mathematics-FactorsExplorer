@@ -163,6 +163,10 @@ h1 {
   margin-top: 0;
 }
 
+.input-group {
+  margin-top: 0.55rem;
+}
+
 .table-wrap {
   margin-top: 0.95rem;
 }
