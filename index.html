@@ -30,52 +30,66 @@
 
     <section class="card wide simple-card" id="oneModeCard">
       <h2>One Number Box</h2>
-      <label for="singleNumberInput">Type one whole number</label>
-      <input id="singleNumberInput" type="number" min="1" placeholder="e.g. 36" />
-      <div id="singleExploreHint" class="result" aria-live="polite">Waiting for a number...</div>
-      <div id="factorResult" class="result" aria-live="polite">Factors will appear here.</div>
-      <div id="primeResult" class="result" aria-live="polite">Prime factorisation will appear here.</div>
+      <div class="mode-layout">
+        <div class="mode-input-pane">
+          <label for="singleNumberInput">Type one whole number</label>
+          <input id="singleNumberInput" type="number" min="1" placeholder="e.g. 36" />
+        </div>
 
-      <div id="singleStatsWrap" class="table-wrap hidden" aria-live="polite">
-        <h3>Factor Stats</h3>
-        <table class="stats-table">
-          <thead>
-            <tr>
-              <th>Stat</th>
-              <th>Value</th>
-            </tr>
-          </thead>
-          <tbody id="singleStatsBody"></tbody>
-        </table>
+        <div class="mode-stats-pane">
+          <div id="singleExploreHint" class="result" aria-live="polite">Waiting for a number...</div>
+          <div id="factorResult" class="result" aria-live="polite">Factors will appear here.</div>
+          <div id="primeResult" class="result" aria-live="polite">Prime factorisation will appear here.</div>
+
+          <div id="singleStatsWrap" class="table-wrap hidden" aria-live="polite">
+            <h3>Factor Stats</h3>
+            <table class="stats-table">
+              <thead>
+                <tr>
+                  <th>Stat</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody id="singleStatsBody"></tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </section>
 
     <section class="card wide simple-card hidden" id="twoModeCard">
       <h2>Two Number Box</h2>
-      <p class="helper-text">Type both numbers. GCD and LCM appear automatically.</p>
-      <div class="two-inputs">
-        <div>
-          <label for="numA">First number</label>
-          <input id="numA" type="number" min="1" placeholder="e.g. 18" />
+      <div class="mode-layout">
+        <div class="mode-input-pane">
+          <p class="helper-text">Type both numbers. GCD and LCM appear automatically.</p>
+          <div class="two-inputs">
+            <div>
+              <label for="numA">First number</label>
+              <input id="numA" type="number" min="1" placeholder="e.g. 18" />
+            </div>
+            <div>
+              <label for="numB">Second number</label>
+              <input id="numB" type="number" min="1" placeholder="e.g. 24" />
+            </div>
+          </div>
         </div>
-        <div>
-          <label for="numB">Second number</label>
-          <input id="numB" type="number" min="1" placeholder="e.g. 24" />
-        </div>
-      </div>
-      <div id="gcdLcmResult" class="result" aria-live="polite">Waiting for two numbers...</div>
 
-      <div id="twoStatsWrap" class="table-wrap hidden" aria-live="polite">
-        <h3>Two-Number Stats</h3>
-        <table class="stats-table">
-          <thead>
-            <tr>
-              <th>Stat</th>
-              <th>Value</th>
-            </tr>
-          </thead>
-          <tbody id="twoStatsBody"></tbody>
-        </table>
+        <div class="mode-stats-pane">
+          <div id="gcdLcmResult" class="result" aria-live="polite">Waiting for two numbers...</div>
+
+          <div id="twoStatsWrap" class="table-wrap hidden" aria-live="polite">
+            <h3>Two-Number Stats</h3>
+            <table class="stats-table">
+              <thead>
+                <tr>
+                  <th>Stat</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody id="twoStatsBody"></tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </section>
   </main>

@@ -121,6 +121,25 @@ h1 {
   gap: 0.7rem;
 }
 
+.mode-layout {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.9fr) minmax(0, 1.6fr);
+  gap: 0.9rem;
+  align-items: start;
+}
+
+.mode-input-pane,
+.mode-stats-pane {
+  background: #ffffffcc;
+  border: 1px solid #dde9ef;
+  border-radius: 12px;
+  padding: 0.8rem;
+}
+
+.mode-input-pane .helper-text {
+  margin-top: 0;
+}
+
 .table-wrap {
   margin-top: 0.95rem;
 }
@@ -298,6 +317,10 @@ button:hover {
 
 @media (max-width: 820px) {
   .main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mode-layout {
     grid-template-columns: 1fr;
   }
 
