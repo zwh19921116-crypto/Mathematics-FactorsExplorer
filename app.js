@@ -73,6 +73,13 @@ function setStatsRows(tbody, rows) {
     .join("");
 }
 
+function formatPrimeTerm(prime, power) {
+  if (power > 1) {
+    return `${prime}<sup>${power}</sup>`;
+  }
+  return `${prime}`;
+}
+
 function primePowerMap(n) {
   const map = {};
   const factors = primeFactorization(n);
@@ -91,7 +98,7 @@ function formatPrimePowers(map) {
   }
 
   return entries
-    .map(([prime, power]) => (power > 1 ? `${prime}^${power}` : `${prime}`))
+    .map(([prime, power]) => formatPrimeTerm(prime, power))
     .join(" × ");
 }
 
@@ -170,7 +177,7 @@ function runSingleExplorer() {
       return acc;
     }, {});
     const compact = Object.entries(grouped)
-      .map(([base, exp]) => (exp > 1 ? `${base}^${exp}` : base))
+      .map(([base, exp]) => formatPrimeTerm(base, exp))
       .join(" × ");
     setResult(primeResult, `<strong>Prime factorisation:</strong> ${value} = ${p.join(" × ")}<br/><small>Compact: ${compact}</small>`, "success");
   } else {
@@ -228,12 +235,7 @@ function runTwoExplorer() {
 
   const lcmPrimeTerms = Object.entries(lcmPrimeMap)
     .sort((x, y) => Number(x[0]) - Number(y[0]))
-    .map(([prime, power]) => {
-      if (power === 1) {
-        return `${prime}`;
-      }
-      return `${prime}^${power}`;
-    });
+    .map(([prime, power]) => formatPrimeTerm(prime, power));
 
   const lcmExplain = `
     <div class="lcm-view">
