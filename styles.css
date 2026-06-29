@@ -83,7 +83,7 @@ h1 {
 
 .main-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 1rem;
   padding-bottom: 2rem;
 }
@@ -102,14 +102,60 @@ h1 {
   background: linear-gradient(130deg, #fff 0%, #fffdf8 100%);
 }
 
-.start-card {
-  background: linear-gradient(130deg, #f1f9ff 0%, #e6f5f4 100%);
-  border-color: #cfe4e8;
-}
-
 .single-explorer {
   background: linear-gradient(130deg, #fffef7 0%, #eefcf7 100%);
   border-color: #d7e8dc;
+}
+
+.simple-card {
+  background: linear-gradient(130deg, #fffef9 0%, #f4fbff 100%);
+}
+
+.hidden {
+  display: none;
+}
+
+.two-inputs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.table-wrap {
+  margin-top: 0.95rem;
+}
+
+.table-wrap h3 {
+  margin: 0 0 0.45rem;
+  font-size: 1rem;
+  color: var(--ink-soft);
+}
+
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid #d8e7ed;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.stats-table th,
+.stats-table td {
+  border-bottom: 1px solid #e6eff4;
+  padding: 0.6rem 0.65rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.stats-table th {
+  background: #f3fafc;
+  color: #39505d;
+  font-weight: 800;
+}
+
+.stats-table tr:last-child td {
+  border-bottom: none;
 }
 
 .steps-list {
@@ -132,9 +178,9 @@ h1 {
   border-radius: 10px;
 }
 
-.tool-card input,
-.tool-card select,
-.tool-card button {
+input,
+select,
+button {
   width: 100%;
   font-family: inherit;
   font-size: 1rem;
@@ -171,23 +217,6 @@ button {
   font-weight: 800;
   cursor: pointer;
   transition: transform 160ms ease, filter 160ms ease;
-}
-
-.ghost-btn,
-.secondary-btn {
-  background: #edf5f9;
-  color: #0b5167;
-  border: 1px solid #bfd5e0;
-  font-weight: 700;
-}
-
-.secondary-btn {
-  min-width: 120px;
-}
-
-.ghost-btn:hover,
-.secondary-btn:hover {
-  background: #e3f0f7;
 }
 
 button:hover {
@@ -280,11 +309,7 @@ button:hover {
     width: 100%;
   }
 
-  .fraction-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .quick-actions {
+  .two-inputs {
     grid-template-columns: 1fr;
   }
 }

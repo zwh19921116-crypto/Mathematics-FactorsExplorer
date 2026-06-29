@@ -67,241 +67,142 @@ function asInt(value) {
   return Number.isInteger(num) ? num : null;
 }
 
-const factorInput = document.getElementById("factorInput");
-const factorBtn = document.getElementById("factorBtn");
-const factorExampleBtn = document.getElementById("factorExampleBtn");
-const factorResult = document.getElementById("factorResult");
+function setStatsRows(tbody, rows) {
+  tbody.innerHTML = rows
+    .map(([label, value]) => `<tr><td>${label}</td><td>${value}</td></tr>`)
+    .join("");
+}
+
+const modeSelect = document.getElementById("modeSelect");
+const oneModeCard = document.getElementById("oneModeCard");
+const twoModeCard = document.getElementById("twoModeCard");
 
 const singleNumberInput = document.getElementById("singleNumberInput");
-const singleExploreBtn = document.getElementById("singleExploreBtn");
 const singleExploreHint = document.getElementById("singleExploreHint");
-
-const primeInput = document.getElementById("primeInput");
-const primeBtn = document.getElementById("primeBtn");
-const primeExampleBtn = document.getElementById("primeExampleBtn");
+const factorResult = document.getElementById("factorResult");
 const primeResult = document.getElementById("primeResult");
+const singleStatsWrap = document.getElementById("singleStatsWrap");
+const singleStatsBody = document.getElementById("singleStatsBody");
 
 const numA = document.getElementById("numA");
 const numB = document.getElementById("numB");
-const gcdLcmBtn = document.getElementById("gcdLcmBtn");
-const gcdLcmExampleBtn = document.getElementById("gcdLcmExampleBtn");
 const gcdLcmResult = document.getElementById("gcdLcmResult");
+const twoStatsWrap = document.getElementById("twoStatsWrap");
+const twoStatsBody = document.getElementById("twoStatsBody");
 
-const n1 = document.getElementById("n1");
-const d1 = document.getElementById("d1");
-const op = document.getElementById("op");
-const n2 = document.getElementById("n2");
-const d2 = document.getElementById("d2");
-const fractionBtn = document.getElementById("fractionBtn");
-const fractionExampleBtn = document.getElementById("fractionExampleBtn");
-const fractionResult = document.getElementById("fractionResult");
+function runSingleExplorer() {
+  const value = asInt(singleNumberInput.value);
 
-const quickFactors = document.getElementById("quickFactors");
-const quickPrime = document.getElementById("quickPrime");
-const quickGcdLcm = document.getElementById("quickGcdLcm");
-const quickFraction = document.getElementById("quickFraction");
+  if (value === null) {
+    setResult(singleExploreHint, "Waiting for a number...");
+    setResult(factorResult, "Factors will appear here.");
+    setResult(primeResult, "Prime factorisation will appear here.");
+    singleStatsWrap.classList.add("hidden");
+    return;
+  }
 
-function runFactors() {
-  const value = asInt(factorInput.value);
-
-  if (value === null || value < 1) {
-    setResult(factorResult, "Please enter a whole number greater than 0.", "error");
+  if (value < 1) {
+    setResult(singleExploreHint, "Please enter a whole number greater than 0.", "error");
+    setResult(factorResult, "Factors will appear here.");
+    setResult(primeResult, "Prime factorisation will appear here.");
+    singleStatsWrap.classList.add("hidden");
     return;
   }
 
   const factors = factorsOf(value);
+  const sumOfFactors = factors.reduce((acc, n) => acc + n, 0);
+  const pairCount = factors.filter((n) => n <= Math.sqrt(value) && value % n === 0).length;
+
+  setResult(singleExploreHint, `Showing results for <strong>${value}</strong>.`, "success");
   setResult(
     factorResult,
-    `<strong>Factors of ${value}:</strong> ${factors.join(", ")}<br/><small>Total factors: ${factors.length}</small>`,
+    `<strong>Factors of ${value}:</strong> ${factors.join(", ")}`,
     "success"
   );
-}
 
-function runPrimeFactorization() {
-  const value = asInt(primeInput.value);
-
-  if (value === null || value < 2) {
-    setResult(primeResult, "Please enter a whole number greater than or equal to 2.", "error");
-    return;
+  if (value >= 2) {
+    const p = primeFactorization(value);
+    const grouped = p.reduce((acc, n) => {
+      acc[n] = (acc[n] || 0) + 1;
+      return acc;
+    }, {});
+    const compact = Object.entries(grouped)
+      .map(([base, exp]) => (exp > 1 ? `${base}^${exp}` : base))
+      .join(" × ");
+    setResult(primeResult, `<strong>Prime factorisation:</strong> ${value} = ${p.join(" × ")}<br/><small>Compact: ${compact}</small>`, "success");
+  } else {
+    setResult(primeResult, "Prime factorisation starts at 2.");
   }
 
-  const factors = primeFactorization(value);
-  const grouped = factors.reduce((acc, f) => {
-    acc[f] = (acc[f] || 0) + 1;
-    return acc;
-  }, {});
-
-  const compact = Object.entries(grouped)
-    .map(([base, exp]) => (exp > 1 ? `${base}^${exp}` : base))
-    .join(" × ");
-
-  setResult(
-    primeResult,
-    `<strong>${value}</strong> = ${factors.join(" × ")}<br/><small>Compact form: ${compact}</small>`,
-    "success"
-  );
+  setStatsRows(singleStatsBody, [
+    ["Number", value],
+    ["Total factors", factors.length],
+    ["Factor pairs", pairCount],
+    ["Smallest factor", factors[0]],
+    ["Largest factor", factors[factors.length - 1]],
+    ["Prime number?", factors.length === 2 ? "Yes" : "No"],
+    ["Perfect square?", Number.isInteger(Math.sqrt(value)) ? "Yes" : "No"],
+    ["Sum of factors", sumOfFactors]
+  ]);
+  singleStatsWrap.classList.remove("hidden");
 }
 
-function runGcdLcm() {
+function runTwoExplorer() {
   const a = asInt(numA.value);
   const b = asInt(numB.value);
 
   if (a === null || b === null) {
-    setResult(gcdLcmResult, "Enter both numbers to calculate GCD and LCM.");
+    setResult(gcdLcmResult, "Waiting for two numbers...");
+    twoStatsWrap.classList.add("hidden");
     return;
   }
 
   if (a < 1 || b < 1) {
     setResult(gcdLcmResult, "Please enter two whole numbers greater than 0.", "error");
+    twoStatsWrap.classList.add("hidden");
     return;
   }
 
   const gcdValue = gcd(a, b);
   const lcmValue = lcm(a, b);
+  const factorsA = factorsOf(a);
+  const factorsB = factorsOf(b);
+  const common = factorsA.filter((n) => factorsB.includes(n));
 
   setResult(
     gcdLcmResult,
-    `<strong>GCD(${a}, ${b}) = ${gcdValue}</strong><br/><strong>LCM(${a}, ${b}) = ${lcmValue}</strong><br/><small>Check: GCD × LCM = ${gcdValue * lcmValue}, and ${a} × ${b} = ${a * b}</small>`,
+    `<strong>GCD(${a}, ${b}) = ${gcdValue}</strong><br/><strong>LCM(${a}, ${b}) = ${lcmValue}</strong>`,
     "success"
   );
+
+  setStatsRows(twoStatsBody, [
+    ["First number", a],
+    ["Second number", b],
+    ["Factor count of first", factorsA.length],
+    ["Factor count of second", factorsB.length],
+    ["Common factors", common.join(", ")],
+    ["Number of common factors", common.length],
+    ["GCD", gcdValue],
+    ["LCM", lcmValue]
+  ]);
+  twoStatsWrap.classList.remove("hidden");
 }
 
-function runSingleExplorer() {
-  const value = asInt(singleNumberInput.value);
+function setMode(mode) {
+  const oneMode = mode === "one";
+  oneModeCard.classList.toggle("hidden", !oneMode);
+  twoModeCard.classList.toggle("hidden", oneMode);
 
-  if (value === null || value < 1) {
-    setResult(singleExploreHint, "Please enter a whole number greater than 0.", "error");
-    return;
+  if (oneMode) {
+    runSingleExplorer();
+  } else {
+    runTwoExplorer();
   }
-
-  factorInput.value = value;
-  primeInput.value = value;
-  runFactors();
-
-  if (value >= 2) {
-    runPrimeFactorization();
-    setResult(
-      singleExploreHint,
-      `Showing full results for <strong>${value}</strong>. Scroll down to see factors and prime factorisation.`,
-      "success"
-    );
-    return;
-  }
-
-  setResult(primeResult, "Prime factorisation starts at 2. Try a number 2 or bigger.");
-  setResult(
-    singleExploreHint,
-    "Factors are shown below. Prime factorisation needs a number of at least 2.",
-    "success"
-  );
 }
 
-function runFractions() {
-  const aNum = asInt(n1.value);
-  const aDen = asInt(d1.value);
-  const bNum = asInt(n2.value);
-  const bDen = asInt(d2.value);
-  const operation = op.value;
+modeSelect.addEventListener("change", () => setMode(modeSelect.value));
+singleNumberInput.addEventListener("input", runSingleExplorer);
+numA.addEventListener("input", runTwoExplorer);
+numB.addEventListener("input", runTwoExplorer);
 
-  if (aNum === null || bNum === null || aDen === null || bDen === null) {
-    setResult(fractionResult, "Please fill all fraction fields with whole numbers.", "error");
-    return;
-  }
-
-  if (aDen === 0 || bDen === 0) {
-    setResult(fractionResult, "Denominators cannot be 0.", "error");
-    return;
-  }
-
-  if (aDen < 0 || bDen < 0) {
-    setResult(fractionResult, "Please use positive denominators for beginner practice.", "error");
-    return;
-  }
-
-  const lcd = lcm(aDen, bDen);
-  const leftScale = lcd / aDen;
-  const rightScale = lcd / bDen;
-
-  const leftAdjusted = aNum * leftScale;
-  const rightAdjusted = bNum * rightScale;
-
-  const resultNum = operation === "+" ? leftAdjusted + rightAdjusted : leftAdjusted - rightAdjusted;
-  const resultDen = lcd;
-
-  const simplifyBy = gcd(resultNum, resultDen);
-  const simpleNum = resultNum / simplifyBy;
-  const simpleDen = resultDen / simplifyBy;
-
-  const sign = operation === "+" ? " + " : " - ";
-
-  const html = `
-    <strong>Step 1:</strong> LCD = LCM(${aDen}, ${bDen}) = ${lcd}<br/>
-    <strong>Step 2:</strong> Rewrite fractions:<br/>
-    ${aNum}/${aDen} = ${leftAdjusted}/${lcd} and ${bNum}/${bDen} = ${rightAdjusted}/${lcd}<br/>
-    <strong>Step 3:</strong> ${leftAdjusted}/${lcd}${sign}${rightAdjusted}/${lcd} = ${resultNum}/${resultDen}<br/>
-    <strong>Step 4:</strong> Simplify by GCD(${Math.abs(resultNum)}, ${resultDen}) = ${simplifyBy}<br/>
-    <strong>Final:</strong> ${resultNum}/${resultDen} = <strong>${simpleNum}/${simpleDen}</strong>
-  `;
-
-  setResult(fractionResult, html, "success");
-}
-
-function setupEnterToRun(inputElements, runFn) {
-  inputElements.forEach((el) => {
-    el.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") {
-        runFn();
-      }
-    });
-  });
-}
-
-function loadFactorExample() {
-  factorInput.value = 36;
-  runFactors();
-}
-
-function loadPrimeExample() {
-  primeInput.value = 60;
-  runPrimeFactorization();
-}
-
-function loadGcdLcmExample() {
-  numA.value = 18;
-  numB.value = 24;
-  runGcdLcm();
-}
-
-function loadFractionExample() {
-  n1.value = 1;
-  d1.value = 4;
-  op.value = "+";
-  n2.value = 3;
-  d2.value = 10;
-  runFractions();
-}
-
-factorBtn.addEventListener("click", runFactors);
-primeBtn.addEventListener("click", runPrimeFactorization);
-gcdLcmBtn.addEventListener("click", runGcdLcm);
-fractionBtn.addEventListener("click", runFractions);
-singleExploreBtn.addEventListener("click", runSingleExplorer);
-
-factorExampleBtn.addEventListener("click", loadFactorExample);
-primeExampleBtn.addEventListener("click", loadPrimeExample);
-gcdLcmExampleBtn.addEventListener("click", loadGcdLcmExample);
-fractionExampleBtn.addEventListener("click", loadFractionExample);
-
-quickFactors.addEventListener("click", loadFactorExample);
-quickPrime.addEventListener("click", loadPrimeExample);
-quickGcdLcm.addEventListener("click", loadGcdLcmExample);
-quickFraction.addEventListener("click", loadFractionExample);
-
-numA.addEventListener("input", runGcdLcm);
-numB.addEventListener("input", runGcdLcm);
-
-setupEnterToRun([factorInput], runFactors);
-setupEnterToRun([primeInput], runPrimeFactorization);
-setupEnterToRun([numA, numB], runGcdLcm);
-setupEnterToRun([n1, d1, n2, d2], runFractions);
-setupEnterToRun([singleNumberInput], runSingleExplorer);
+setMode(modeSelect.value);

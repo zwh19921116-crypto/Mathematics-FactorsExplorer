@@ -14,158 +14,74 @@
     <div class="hero__content container">
       <p class="eyebrow">Mathematics Learning Tool</p>
       <h1>Factor Explorer</h1>
-      <p class="subtitle">Understand factors, GCD, LCM, and fractions with simple steps.</p>
+      <p class="subtitle">Type one number or two numbers. Results appear automatically.</p>
     </div>
   </header>
 
   <main class="container main-grid">
-    <section class="card wide single-explorer">
-      <h2>Number Explorer (Start Here)</h2>
-      <p class="helper-text">Enter one number once. The app will show factors and prime factorisation together.</p>
-      <div class="row">
-        <input id="singleNumberInput" type="number" min="1" placeholder="Enter one whole number, e.g. 36" />
-        <button type="button" id="singleExploreBtn">Show Everything</button>
-      </div>
-      <div id="singleExploreHint" class="result" aria-live="polite">Try 36, then press Show Everything.</div>
+    <section class="card wide simple-card">
+      <h2>Choose Input Mode</h2>
+      <label for="modeSelect">Mode</label>
+      <select id="modeSelect" aria-label="Choose one or two number mode">
+        <option value="one">1 Number</option>
+        <option value="two">2 Numbers</option>
+      </select>
     </section>
 
-    <section class="card start-card wide">
-      <h2>Start Here: 3 Easy Steps</h2>
-      <ol class="steps-list">
-        <li>Click a "Try Example" button to auto-fill values.</li>
-        <li>Click the main action button (or press Enter in a box).</li>
-        <li>Read the result and follow the math steps shown.</li>
-      </ol>
-      <div class="quick-actions">
-        <button class="ghost-btn" type="button" id="quickFactors">Try Factors Example</button>
-        <button class="ghost-btn" type="button" id="quickPrime">Try Prime Example</button>
-        <button class="ghost-btn" type="button" id="quickGcdLcm">Try GCD/LCM Example</button>
-        <button class="ghost-btn" type="button" id="quickFraction">Try Fraction Example</button>
-      </div>
-    </section>
+    <section class="card wide simple-card" id="oneModeCard">
+      <h2>One Number Box</h2>
+      <label for="singleNumberInput">Type one whole number</label>
+      <input id="singleNumberInput" type="number" min="1" placeholder="e.g. 36" />
+      <div id="singleExploreHint" class="result" aria-live="polite">Waiting for a number...</div>
+      <div id="factorResult" class="result" aria-live="polite">Factors will appear here.</div>
+      <div id="primeResult" class="result" aria-live="polite">Prime factorisation will appear here.</div>
 
-    <section class="card learn-card">
-      <h2>What is a factor?</h2>
-      <p>
-        A <strong>factor</strong> of a number is a whole number that divides it exactly (no remainder).
-      </p>
-      <p>
-        Example: Factors of 12 are 1, 2, 3, 4, 6, 12 because each one can divide 12 exactly.
-      </p>
-      <div class="tip">
-        Quick check: If <em>a × b = n</em>, then both <em>a</em> and <em>b</em> are factors of <em>n</em>.
+      <div id="singleStatsWrap" class="table-wrap hidden" aria-live="polite">
+        <h3>Factor Stats</h3>
+        <table class="stats-table">
+          <thead>
+            <tr>
+              <th>Stat</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody id="singleStatsBody"></tbody>
+        </table>
       </div>
     </section>
 
-    <section class="card wide">
-      <h2>Lesson Mode</h2>
-      <p class="helper-text">Choose a topic, then read a short explanation and a worked example.</p>
-      <div class="quick-actions lesson-actions">
-        <button class="ghost-btn" type="button" id="lessonFactorsBtn">Lesson: Factors</button>
-        <button class="ghost-btn" type="button" id="lessonPrimeBtn">Lesson: Prime Factorization</button>
-        <button class="ghost-btn" type="button" id="lessonGcdLcmBtn">Lesson: GCD and LCM</button>
-        <button class="ghost-btn" type="button" id="lessonFractionBtn">Lesson: Fractions with LCM</button>
-      </div>
-      <div id="lessonResult" class="result" aria-live="polite">
-        Choose a lesson button to begin.
-      </div>
-    </section>
-
-    <section class="card wide">
-      <h2>Practice Challenge</h2>
-      <p class="helper-text">Generate a random question, answer it, and get feedback.</p>
-      <div class="practice-grid">
-        <select id="practiceType">
-          <option value="factorsCount">How many factors?</option>
-          <option value="gcd">Find GCD</option>
-          <option value="lcm">Find LCM</option>
-        </select>
-        <button type="button" id="newPracticeBtn">New Question</button>
-      </div>
-      <div id="practiceQuestion" class="result">Click "New Question" to start practice.</div>
-      <div class="row">
-        <input id="practiceAnswer" type="number" placeholder="Type your answer" />
-        <button type="button" id="checkPracticeBtn">Check Answer</button>
-      </div>
-      <div id="practiceFeedback" class="result" aria-live="polite">Feedback will appear here.</div>
-    </section>
-
-    <section class="card tool-card">
-      <h2>Find Factors</h2>
-      <label for="factorInput">Enter a whole number</label>
-      <div class="row">
-        <input id="factorInput" type="number" min="1" placeholder="e.g. 36" />
-        <button class="secondary-btn" type="button" id="factorExampleBtn">Try Example</button>
-        <button id="factorBtn">Explore</button>
-      </div>
-      <div id="factorResult" class="result" aria-live="polite">Tip: Try 36 to see factor pairs.</div>
-    </section>
-
-    <section class="card tool-card">
-      <h2>Prime Factorization</h2>
-      <label for="primeInput">Enter a whole number</label>
-      <div class="row">
-        <input id="primeInput" type="number" min="2" placeholder="e.g. 60" />
-        <button class="secondary-btn" type="button" id="primeExampleBtn">Try Example</button>
-        <button id="primeBtn">Factorize</button>
-      </div>
-      <div id="primeResult" class="result" aria-live="polite">Tip: Try 60 for a classic example.</div>
-    </section>
-
-    <section class="card tool-card">
-      <h2>GCD and LCM (Two Numbers)</h2>
-      <p class="helper-text">This only calculates when both numbers are filled.</p>
-      <label for="numA">First number</label>
-      <input id="numA" type="number" min="1" placeholder="e.g. 18" />
-      <label for="numB">Second number</label>
-      <input id="numB" type="number" min="1" placeholder="e.g. 24" />
-      <div class="row">
-        <button class="secondary-btn" type="button" id="gcdLcmExampleBtn">Try Example</button>
-        <button id="gcdLcmBtn">Calculate</button>
-      </div>
-      <div id="gcdLcmResult" class="result" aria-live="polite">Enter both numbers to calculate GCD and LCM.</div>
-    </section>
-
-    <section class="card tool-card wide">
-      <h2>Fractions Helper (Using LCM)</h2>
-      <p class="helper-text">Add or subtract fractions by finding the lowest common denominator (LCD), which is the LCM of denominators.</p>
-
-      <div class="fraction-grid">
+    <section class="card wide simple-card hidden" id="twoModeCard">
+      <h2>Two Number Box</h2>
+      <p class="helper-text">Type both numbers. GCD and LCM appear automatically.</p>
+      <div class="two-inputs">
         <div>
-          <label for="n1">Fraction 1 Numerator</label>
-          <input id="n1" type="number" placeholder="e.g. 1" />
+          <label for="numA">First number</label>
+          <input id="numA" type="number" min="1" placeholder="e.g. 18" />
         </div>
         <div>
-          <label for="d1">Fraction 1 Denominator</label>
-          <input id="d1" type="number" min="1" placeholder="e.g. 4" />
-        </div>
-        <div class="op-group">
-          <label for="op">Operation</label>
-          <select id="op">
-            <option value="+">+</option>
-            <option value="-">-</option>
-          </select>
-        </div>
-        <div>
-          <label for="n2">Fraction 2 Numerator</label>
-          <input id="n2" type="number" placeholder="e.g. 3" />
-        </div>
-        <div>
-          <label for="d2">Fraction 2 Denominator</label>
-          <input id="d2" type="number" min="1" placeholder="e.g. 10" />
+          <label for="numB">Second number</label>
+          <input id="numB" type="number" min="1" placeholder="e.g. 24" />
         </div>
       </div>
+      <div id="gcdLcmResult" class="result" aria-live="polite">Waiting for two numbers...</div>
 
-      <div class="row">
-        <button class="secondary-btn" type="button" id="fractionExampleBtn">Try Example</button>
-        <button id="fractionBtn">Solve with Steps</button>
+      <div id="twoStatsWrap" class="table-wrap hidden" aria-live="polite">
+        <h3>Two-Number Stats</h3>
+        <table class="stats-table">
+          <thead>
+            <tr>
+              <th>Stat</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody id="twoStatsBody"></tbody>
+        </table>
       </div>
-      <div id="fractionResult" class="result" aria-live="polite">Tip: Try 1/4 + 3/10 and follow the four steps.</div>
     </section>
   </main>
 
   <footer class="container footer">
-    <p>Built for students to explore number relationships step by step.</p>
+    <p>Simple mode: type numbers only, no extra clicks.</p>
   </footer>
 
   <script src="app.js"></script>
