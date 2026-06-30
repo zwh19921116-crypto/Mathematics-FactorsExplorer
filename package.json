@@ -1,0 +1,27 @@
+{
+  "name": "factors-explorer",
+  "version": "1.0.0",
+  "description": "A student-friendly web app to learn:\r - Factors of a number\r - Prime factorization\r - GCD (Greatest Common Divisor)\r - LCM (Least Common Multiple)\r - Fraction addition/subtraction using LCM (lowest common denominator)",
+  "main": "app.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:report": "playwright show-report"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zwh19921116-crypto/Mathematics-FactorsExplorer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zwh19921116-crypto/Mathematics-FactorsExplorer/issues"
+  },
+  "homepage": "https://github.com/zwh19921116-crypto/Mathematics-FactorsExplorer#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "http-server": "^14.1.1"
+  }
+}

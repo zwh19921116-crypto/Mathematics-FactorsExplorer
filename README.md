@@ -21,6 +21,20 @@ This tool is designed to help students understand ideas step by step instead of 
 1. Open `index.html` in a web browser.
 2. Or use the VS Code Live Server extension for auto-refresh.
 
+## Automated browser tests (Playwright)
+1. Install dependencies:
+	- `npm install`
+2. Install Playwright browser:
+	- `npx playwright install chromium`
+3. Run tests:
+	- `npm run test:e2e`
+4. Open HTML report:
+	- `npm run test:e2e:report`
+
+Notes:
+- Tests use a local static server at `http://127.0.0.1:4173`.
+- GitHub Actions runs these tests automatically on pushes and pull requests to `main`.
+
 ## Suggested classroom use
 1. Ask students to predict factors first.
 2. Use the app to check answers.
